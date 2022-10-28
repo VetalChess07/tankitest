@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8" />
+   <title>Swiper demo</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+   <!-- Link Swiper's CSS -->
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+</head>
+
+<body>
+
+
+
+
+   <div class="open-popup ">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/testimg.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/Garage1_mini.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/download.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/testimg.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/Garage1_mini.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/download.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/testimg.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/Garage1_mini.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup ">
+      <img src="img/download.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+
+
+   <div class="popup__bg ">
+      <div class="popup">
+         <img src="img/testimg.jpg" width="5px" height="5px" class="close-popup">
+         <img class="popup__image" src="" alt="">
+         <p class="popup__text"></p>
+      </div>
+   </div>
+
+
+
+
+   <style>
+      .open-popup {
+         background-color: aqua;
+      }
+
+      .scroll-on {
+         background-color: red;
+         pointer-events: none;
+      }
+
+      .disable-scroll {
+         position: relative;
+         overflow: hidden;
+         height: 100vh;
+         position: fixed;
+         left: 0;
+         top: 0;
+         width: 100%;
+      }
+
+      .popup__bg {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         background: rgba(0, 0, 0, 0.5);
+         opacity: 0;
+         pointer-events: none;
+         transition: 0.5s all;
+         overflow: auto;
+      }
+
+
+      .popup__bg.active {
+         width: 100%;
+         height: 100vh;
+         opacity: 1;
+         pointer-events: all;
+         transition: 0.5s all;
+         background-color: rgb(30, 255, 0);
+         overflow: auto;
+      }
+
+      body.active {
+         overflow: hidden;
+      }
+
+      .popup {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+         background-color: red;
+         transform: translate(-50%, -50%) scale(0);
+         background: #fff;
+         overflow: auto;
+         padding: 25px;
+         transition: 0.5s all;
+      }
+
+      .popup.active {
+         overflow: auto;
+         background-color: rgb(0, 0, 0);
+
+         transform: translate(-50%, -50%) scale(1);
+         transition: 0.5s all;
+      }
+
+
+      .close-popup {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         cursor: pointer;
+         font-size: 40px;
+      }
+   </style>
+
+   <script>
+      const btnOff = document.querySelector('.open-popup'),
+         btnOn = document.querySelector('.popup'),
+         body = document.body;
+
+      let disableScroll = function () {
+         let pagePosition = window.scrollY;
+         document.body.classList.add('active');
+         document.body.dataset.position = pagePosition;
+         document.body.style.top = -pagePosition + 'px';
+      }
+
+      let enableScroll = function () {
+         let pagePosition = parseInt(document.body.dataset.position, 10);
+         document.body.style.top = 'auto';
+         document.body.classList.remove('active');
+         window.scroll({ top: pagePosition, left: 0 });
+         document.body.removeAttribute('active');
+      }
+
+      btnOff.addEventListener('click', (e) => {
+         disableScroll();
+         e.currentTarget.style.pointerEvents = 'none';
+         btnOn.style.pointerEvents = 'auto';
+      });
+
+      btnOn.addEventListener('click', (e) => {
+         enableScroll();
+         e.currentTarget.style.pointerEvents = 'none';
+         btnOff.style.pointerEvents = 'auto';
+      });
+
+      let popupBg = document.querySelector('.popup__bg'); // Фон попап окна
+      let popup = document.querySelector('.popup'); // Само окно
+      let openPopupButtons = document.querySelectorAll('.open-popup'); // Кнопки для показа окна
+      let closePopupButton = document.querySelector('.close-popup');
+
+      console.log(body);
+
+
+
+
+      openPopupButtons.forEach((button) => { // Перебираем все кнопки
+         button.addEventListener('click', (e) => { // Для каждой вешаем обработчик событий на клик
+            e.preventDefault(); // Предотвращаем дефолтное поведение браузера
+            popupBg.classList.add('active'); // Добавляем класс 'active' для фона
+            popup.classList.add('active'); // И для самого окна
+            body.classList.add('active')
+         })
+      });
+
+      closePopupButton.addEventListener('click', () => { // Вешаем обработчик на крестик
+         popupBg.classList.remove('active'); // Убираем активный класс с фона
+         popup.classList.remove('active'); // И с окна
+         body.classList.remove('active');
+      });
+
+      document.addEventListener('click', (e) => { // Вешаем обработчик на весь документ
+         if (e.target === popupBg) { // Если цель клика - фот, то:
+            popupBg.classList.remove('active'); // Убираем активный класс с фона
+            popup.classList.remove('active'); // И с окна
+            body.classList.remove('active');
+         }
+      });
+
+      const cards = document.querySelectorAll(".open-popup");
+      cards.forEach((card) => {
+         card.addEventListener("click", (e) => {
+            let targetEl = e.target;
+            let targetCardText = card.querySelector(".card__text");
+            let targetCardImage = card.querySelector(".card__image");
+            document.querySelector(".popup__text").textContent = targetCardText.textContent;
+            document.querySelector(".popup__image").src = targetCardImage.src;
+         });
+      });
+
+
+   </script>
+</body>
+
+</html>
