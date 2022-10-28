@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8" />
+   <title>test</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+   <!-- Link Swiper's CSS -->
+
+</head>
+
+<body>
+
+
+   <div class="open-popup">
+      <img src="img/testimg.jpg" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+
+   <div class="open-popup">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">lorem
+         Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis dolorem amet nisi consequatur vero, ex ipsum
+         quibusdam facere non sed corporis? Totam debitis quasi mollitia libero repellendus quia eos esse. ffffffffff
+      </p>
+   </div>
+
+   <div class="open-popup">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+   <div class="open-popup">
+      <img src="img/unnamed.png" class="card__image" alt="">
+      <p class="card__text">ffffffffff</p>
+   </div>
+
+
+   <div class="popup__bg">
+      <div class="popup">
+         <img src="img/testimg.jpg" width="5px" height="5px" class="close-popup">
+         <img class="popup__image" src="" alt="">
+         <p class="popup__text"></p>
+      </div>
+   </div>
+
+
+   <style>
+      .popup__bg {
+         position: fixed;
+         top: 0;
+         left: 0;
+         width: 100%;
+         height: 100vh;
+         background: rgba(0, 0, 0, 0.5);
+         opacity: 0;
+         pointer-events: none;
+         transition: 0.5s all;
+         overflow: auto;
+      }
+
+
+      .popup__bg.active {
+         width: 100%;
+         height: 100vh;
+         opacity: 1;
+         pointer-events: all;
+         transition: 0.5s all;
+         background-color: aqua;
+         overflow: auto;
+      }
+
+      body.active {
+         overflow: hidden;
+      }
+
+      .popup {
+         position: fixed;
+         top: 50%;
+         left: 50%;
+
+         transform: translate(-50%, -50%) scale(0);
+         background: #fff;
+         overflow: auto;
+         padding: 25px;
+         transition: 0.5s all;
+      }
+
+      .popup.active {
+         overflow: auto;
+         background-color: #000;
+
+         transform: translate(-50%, -50%) scale(1);
+         transition: 0.5s all;
+      }
+
+
+      .close-popup {
+         position: absolute;
+         top: 10px;
+         right: 10px;
+         cursor: pointer;
+         font-size: 40px;
+      }
+   </style>
+
+   <script>
+      let popupBg = document.querySelector('.popup__bg'); // Фон попап окна
+      let popup = document.querySelector('.popup'); // Само окно
+      let openPopupButtons = document.querySelectorAll('.open-popup'); // Кнопки для показа окна
+      let closePopupButton = document.querySelector('.close-popup');
+      const body = document.body;
+      console.log(body);
+
+
+
+
+      openPopupButtons.forEach((button) => { // Перебираем все кнопки
+         button.addEventListener('click', (e) => { // Для каждой вешаем обработчик событий на клик
+            e.preventDefault(); // Предотвращаем дефолтное поведение браузера
+            popupBg.classList.add('active'); // Добавляем класс 'active' для фона
+            popup.classList.add('active'); // И для самого окна
+            body.classList.add('active')
+         })
+      });
+
+      closePopupButton.addEventListener('click', () => { // Вешаем обработчик на крестик
+         popupBg.classList.remove('active'); // Убираем активный класс с фона
+         popup.classList.remove('active'); // И с окна
+         body.classList.remove('active');
+      });
+
+      document.addEventListener('click', (e) => { // Вешаем обработчик на весь документ
+         if (e.target === popupBg) { // Если цель клика - фот, то:
+            popupBg.classList.remove('active'); // Убираем активный класс с фона
+            popup.classList.remove('active'); // И с окна
+            body.classList.remove('active');
+         }
+      });
+
+      const cards = document.querySelectorAll(".open-popup");
+      cards.forEach((card) => {
+         card.addEventListener("click", (e) => {
+            let targetEl = e.target;
+            let targetCardText = card.querySelector(".card__text");
+            let targetCardImage = card.querySelector(".card__image");
+            document.querySelector(".popup__text").textContent = targetCardText.textContent;
+            document.querySelector(".popup__image").src = targetCardImage.src;
+         });
+      });
+   </script>
+</body>
+
+</html>
